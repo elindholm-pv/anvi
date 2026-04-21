@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPTF Work Portfolio - Q1 2026 Review</title>
+    <style>
+        /* ============================================
+           PRINT SETTINGS
+           ============================================ */
+        @media print {
+            @page {
+                size: A4;
+                margin: 15mm;
+            }
+            body {
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+            .no-break {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* ============================================
+           GLOBAL STYLES
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ============================================
+           GSK COLOR VARIABLES
+           ============================================ */
+        :root {
+            --gsk-orange: #CF581D;
+            --gsk-yellow: #E4AD2E;
+            --gsk-dark: #2C2C2C;
+            --gsk-light-gray: #F5F5F5;
+            --green: #28a745;
+            --yellow: #ffc107;
+            --red: #dc3545;
+        }
+
+        /* ============================================
+           HEADER SECTION
+           ============================================ */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 4px solid var(--gsk-orange);
+            padding-bottom: 20px;
+        }
+
+        .logo {
+            max-width: 200px;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--gsk-dark);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: var(--gsk-orange);
+            margin-bottom: 5px;
+        }
+
+        .meta-info {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        /* ============================================
+           FINANCIAL SUMMARY - BIG NUMBERS
+           ============================================ */
+        .financial-summary {
+            background: linear-gradient(135deg, var(--gsk-orange), var(--gsk-yellow));
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .financial-summary h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .big-numbers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .big-number {
+            text-align: center;
+            background: rgba(255,255,255,0.15);
+            padding: 25px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .big-number-value {
+            font-size: 48px;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .big-number-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.95;
+        }
+
+        .roi-highlight {
+            text-align: center;
+            font-size: 20px;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 8px;
+        }
+
+        /* ============================================
+           SECTION STYLES
+           ============================================ */
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            color: var(--gsk-orange);
+            border-bottom: 3px solid var(--gsk-yellow);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .section-subtitle {
+            font-size: 20px;
+            color: var(--gsk-dark);
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        /* ============================================
+           EXECUTIVE SUMMARY
+           ============================================ */
+        .executive-summary {
+            background: var(--gsk-light-gray);
+            padding: 25px;
+            border-left: 5px solid var(--gsk-orange);
+            border-radius: 5px;
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        /* ============================================
+           QUARTER HEADERS
+           ============================================ */
+        .quarter-header {
+            background: var(--gsk-yellow);
+            color: var(--gsk-dark);
+            padding: 15px 20px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .quarter-total {
+            text-align: right;
+            font-weight: bold;
+            color: var(--gsk-orange);
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        /* ============================================
+           TABLES
+           ============================================ */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+            font-size: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .data-table thead {
+            background: var(--gsk-orange);
+            color: white;
+        }
+
+        .data-table th {
+            padding: 12px 8px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+
+        .data-table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #ddd;
+            vertical-align: top;
+        }
+
+        .data-table tbody tr:hover {
+            background: #f9f9f9;
+        }
+
+        .data-table tbody tr:nth-child(even) {
+            background: #fafafa;
+        }
+
+        /* ============================================
+           STATUS BADGES
+           ============================================ */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .badge-green {
+            background: var(--green);
+            color: white;
+        }
+
+        .badge-yellow {
+            background: var(--yellow);
+            color: #333;
+        }
+
+        .badge-red {
+            background: var(--red);
+            color: white;
+        }
+
+        .badge-completed {
+            background: #6c757d;
+            color: white;
+        }
+
+        /* ============================================
+           PRIORITY BOXES
+           ============================================ */
+        .priority-box {
+            background: white;
+            border: 2px solid var(--gsk-orange);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .priority-box h4 {
+            color: var(--gsk-orange);
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .priority-box .description {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .priority-box .projects-list {
+            margin-left: 20px;
+            font-size: 14px;
+        }
+
+        .priority-box .projects-list li {
+            margin-bottom: 8px;
+        }
+
+        /* ============================================
+           OBJECTIVE BOXES
+           ============================================ */
+        .objective-box {
+            background: var(--gsk-light-gray);
+            border-left: 5px solid var(--gsk-yellow);
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 5px;
+        }
+
+        .objective-box h4 {
+            color: var(--gsk-dark);
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .objective-target {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 25px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--gsk-orange), var(--gsk-yellow));
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .objective-box .projects-list {
+            margin-left: 20px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .objective-box .projects-list li {
+            margin-bottom: 8px;
+        }
+
+        .objective-impact {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        /* ============================================
+           RISK BOXES
+           ============================================ */
+        .risk-box {
+            border-left: 5px solid var(--red);
+            background: #fff5f5;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .risk-box.medium {
+            border-left-color: var(--yellow);
+            background: #fffbf0;
+        }
+
+        .risk-box h4 {
+            color: var(--red);
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .risk-box.medium h4 {
+            color: #856404;
+        }
+
+        .risk-box .project-name {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .risk-details {
+            margin-left: 20px;
+            font-size: 14px;
+        }
+
+        .risk-details li {
+            margin-bottom: 8px;
+        }
+
+        .risk-mitigation {
+            margin-top: 15px;
+        }
+
+        .risk-mitigation p {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .risk-recommendation {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(220, 53, 69, 0.1);
+            border-radius: 5px;
+            font-weight: bold;
+            color: var(--red);
+        }
+
+        /* ============================================
+           DEPENDENCY BOXES
+           ============================================ */
+        .dependency-box {
+            background: #fff3cd;
+            border-left: 5px solid var(--gsk-yellow);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .dependency-box h4 {
+            color: var(--gsk-dark);
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .dependency-box .anchor-project {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .dependency-box .dependent-projects {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .dependency-box .dependent-projects li {
+            margin-bottom: 5px;
+        }
+
+        .dependency-conflict {
+            color: var(--red);
+            font-weight: bold;
+        }
+
+        .dependency-risk {
+            margin-top: 15px;
+            font-weight: bold;
+            color: var(--red);
+        }
+
+        /* ============================================
+           ACTION TABLES
+           ============================================ */
+        .action-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 13px;
+        }
+
+        .action-table th {
+            background: var(--gsk-dark);
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .action-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .priority-p0 {
+            background: #ffebee;
+            font-weight: bold;
+        }
+
+        .priority-p1 {
+            background: #fff8e1;
+        }
+
+        /* ============================================
+           LINKS
+           ============================================ */
+        a {
+            color: var(--gsk-orange);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 2px solid var(--gsk-light-gray);
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .footer p {
+            margin-bottom: 5px;
+        }
+
+        .footer .confidential {
+            margin-top: 20px;
+            color: var(--gsk-orange);
+            font-weight: bold;
+        }
+
+        /* ============================================
+           UTILITY CLASSES
+           ============================================ */
+        .text-center {
+            text-align: center;
+        }
+
+        .text-bold {
+            font-weight: bold;
+        }
+
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        .status-green {
+            color: var(--green);
+            font-weight: bold;
+        }
+
+        .status-yellow {
+            color: var(--yellow);
+            font-weight: bold;
+        }
+
+        .status-red {
+            color: var(--red);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+         HEADER
+         ============================================ -->
+    <div class="header">
+        <img src="https://1000logos.net/wp-content/uploads/2023/03/GSK-logo.png" alt="GSK Logo" class="logo">
+        <div class="title">DPTF Work Portfolio</div>
+        <div class="subtitle">Q1 2026 Portfolio Project Review</div>
+        <div class="meta-info">
+            <strong>Prepared by:</strong> Jim Harris, VP | 
+            <strong>Date:</strong> March 12, 2026 | 
+            <strong>Portfolio:</strong> DPTF Work Portfolio
+        </div>
+    </div>
+
+    <!-- ============================================
+         FINANCIAL SUMMARY - BIG NUMBERS
+         ============================================ -->
+    <div class="financial-summary">
+        <h2>Portfolio Financial Summary</h2>
+        <div class="big-numbers">
+            <div class="big-number">
+                <span class="big-number-value">16</span>
+                <span class="big-number-label">Active Projects</span>
+            </div>
+            <div class="big-number">
+                <span class="big-number-value">£35.1M</span>
+                <span class="big-number-label">Benefits/Revenue</span>
+            </div>
+            <div class="big-number">
+                <span class="big-number-value">£13.2M</span>
+                <span class="big-number-label">Capex Investment</span>
+            </div>
+            <div class="big-number">
+                <span class="big-number-value">£7.8M</span>
+                <span class="big-number-label">OpEx Investment</span>
+            </div>
+            <div class="big-number">
+                <span class="big-number-value">(£5.4M)</span>
+                <span class="big-number-label">Cost Variance</span>
+            </div>
+          
+        </div>
+        <div class="roi-highlight">
+            <strong>ROI Potential: 2.7x</strong> (if all projects deliver as planned)
+        </div>
+    </div>
+
+    <!-- ============================================
+         SECTION 1: EXECUTIVE SUMMARY
+         ============================================ -->
+    <div class="section">
+        <h2 class="section-title">1. Executive Summary</h2>
+        <div class="executive-summary">
+            The DPTF Work Portfolio is performing solidly with 16 active projects representing a total investment of £35.1M in benefits/revenue and £13.2M in capex. The portfolio demonstrates strong strategic alignment with 75% of projects rated Green for overall status. Our focus remains on digital transformation through three core CTO priorities: Core Transformation (5 projects, £11.5M benefits), Digital Platforms (3 projects, £9.4M benefits), and Brilliant at the Basics (5 projects, £9.1M benefits). While the majority of projects are on track, we have three projects flagged Red requiring immediate attention: eQMS Harmonisation & Data Integrity, Legacy HR system UI refresh, and Risk Calculation App Project. These projects face cost overruns totaling £6.5M and require executive intervention. The portfolio is well-positioned to deliver significant value in 2026, with key initiatives supporting our strategic objectives around regulatory compliance, customer engagement, operational efficiency, and technical debt reduction. Critical Q2 2026 deliverables include Stage Gate Project, Risk Calculation App, and NextGen Software Implementation, which collectively represent £5.2M in expected benefits.
+        </div>
+    </div>
+
+    <!-- ============================================
+         PAGE BREAK
+         ============================================ -->
+    <div class="page-break"></div>
+
+    <!-- ============================================
+         SECTION 2: WHAT WILL BE DELIVERED IN 2026
+         ============================================ -->
+    <div class="section">
+        <h2 class="section-title">2. What Will Be Delivered in 2026</h2>
+
+        <!-- Q1 2026 -->
+        <div class="quarter-header">Q1 2026 (January - March)</div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th style="width: 15%;">Project</th>
+                    <th style="width: 25%;">Description</th>
+                    <th style="width: 12%;">CTO Priority</th>
+                    <th style="width: 8%;">Target Date</th>
+                    <th style="width: 8%;">Status</th>
+                    <th style="width: 6%;">Capex</th>
+                    <th style="width: 6%;">OpEx</th>
+                    <th style="width: 8%;">Cost Variance</th>
+                    <th style="width: 8%;">Benefits</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=17198">
+                            Hybrid Cloud Platform Optimisation
+                        </a>
+                    </td>
+                    <td>Optimize global hybrid cloud infrastructure through enhanced automation, governance, and security</td>
+                    <td>Brilliant at the Basics</td>
+                    <td>Q4 2027</td>
+                    <td><span class="status-badge badge-green">🟢 Green</span></td>
+                    <td>£75K</td>
+                    <td>£50K</td>
+                    <td>£0K</td>
+                    <td>£1,000K</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Q2 2026 -->
+        <div class="quarter-header">Q2 2026 (April - June)</div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th style="width: 15%;">Project</th>
+                    <th style="width: 25%;">Description</th>
+                    <th style="width: 12%;">CTO Priority</th>
+                    <th style="width: 8%;">Target Date</th>
+                    <th style="width: 8%;">Status</th>
+                    <th style="width: 6%;">Capex</th>
+                    <th style="width: 6%;">OpEx</th>
+                    <th style="width: 8%;">Cost Variance</th>
+                    <th style="width: 8%;">Benefits</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=6235">
+                            Stage Gate Project
+                        </a>
+                    </td>
+                    <td>Implement new software application to improve quality educational software delivery</td>
+                    <td>Brilliant at the Basics</td>
+                    <td>May 19, 2026</td>
+                    <td><span class="status-badge badge-green">🟢 Green</span></td>
+                    <td>£41K</td>
+                    <td>£258K</td>
+                    <td>£11K</td>
+                    <td>£2,439K</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=6254">
+                            Risk Calculation App Project
+                        </a>
+                    </td>
+                    <td>Risk calculation application implementation for enhanced self-service</td>
+                    <td>Digital Experience</td>
+                    <td>May 11, 2026</td>
+                    <td><span class="status-badge badge-red">🔴 Red</span></td>
+                    <td>£1,736K</td>
+                    <td>£383K</td>
+                    <td>(£1,759K)</td>
+                    <td>£610K</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3817">
+                            NextGen Software Implementation
+                        </a>
+                    </td>
+                    <td>Implement new software application to improve quality healthcare delivery</td>
+                    <td>Digital Platforms</td>
+                    <td>June 26, 2026</td>
+                    <td><span class="status-badge badge-green">🟢 Green</span></td>
+                    <td>£519K</td>
+                    <td>£260K</td>
+                    <td>£99K</td>
+                    <td>£2,111K</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="quarter-total">Q2 Total Investment: £2.3M Capex | £901K OpEx | Expected Returns: £5.2M</p>
+
+        <!-- Q3 2026 -->
+        <div class="quarter-header">Q3 2026 (July - September)</div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th style="width: 15%;">Project</th>
+                    <th style="width: 25%;">Description</th>
+                    <th style="width: 12%;">CTO Priority</th>
+                    <th style="width: 8%;">Target Date</th>
+                    <th style="width: 8%;">Status</th>
+                    <th style="width: 6%;">Capex</th>
+                    <th style="width: 6%;">OpEx</th>
+                    <th style="width: 8%;">Cost Variance</th>
+                    <th style="width: 8%;">Benefits</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3839">
+                            NextGen Mobile Offers Rollout
+                        </a>
+                    </td>
+                    <td>Provide targeted offers via next generation applications and Big Data analysis</td>
+                    <td>Core Transformation</td>
+                    <td>July 8, 2026</td>
+                    <td><span class="status-badge badge-green">🟢 Green</span></td>
+                    <td>£805K</td>
+                    <td>£367K</td>
+                    <td>£585K</td>
+                    <td>£3,105K</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3829">
+                            Mobile Identity & Fraud Safeguards
+                        </a>
+                    </td>
+                    <td>Implement software application to improve security and fraud prevention</td>
+                    <td>Brilliant at the Basics</td>
+                    <td>Oct 7, 2025*</td>
+                    <td><span class="status-badge badge-green">🟢 Green</span></td>
+                    <td>£1,692K</td>
+                    <td>£1,706K</td>
+                    <td>£0K</td>
+                    <td>£1,634K</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3835">
+                            Big Data Analytics for Mobile Apps
+                        </a>
+                    </td>
+                    <td>Integrate Big Data Analytics into NextGen mobile applications</td>
+                    <td>Digital Platforms</td>
+                    <td>Oct 23, 2025*</td>
+                    <td><span class="status-badge badge-green">🟢 Green</span></td>
+                    <td>£1,280K</td>
+                    <td>£64K</td>
+                    <td>£49K</td>
+                    <td>£2,844K</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="quarter-total">Q3 Total Investment: £3.8M Capex | £2.1M OpEx | Expected Returns: £7.6M</p>
+
+        <!-- Q4 2026 -->
+        <div class="quarter-header">Q4 2026 (October - December)</div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th style="width: 15%;">Project</th>
+                    <th style="width: 25%;">Description</th>
+                    <th style="width: 12%;">CTO Priority</th>
+                    <th style="width: 8%;">Target Date</th>
+                    <th style="width: 8%;">Status</th>
+                    <th style="width: 6%;">Capex</th>
+                    <th style="width: 6%;">OpEx</th>
+                    <th style="width: 8%;">Cost Variance</th>
+                    <th style="width: 8%;">Benefits</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=17183">
+                            Connect Subscription
+                        </a>
+                    </td>
+                    <td>Connect Subscription service implementation to expand digital offerings</td>
+                    <td>Digital Experience</td>
+                    <td>Oct 16, 2026</td>
+                    <td><span class="status-badge badge-green">🟢 Green</span></td>
+                    <td>£0K</td>
+                    <td>£0K</td>
+                    <td>£0K</td>
+                    <td>£0K</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3838">
+                            NextGen Data *Collaboration
+                        </a>
+                    </td>
+                    <td>Enable data collaboration on next generation Mobile Application</td>
+                    <td>Core Transformation</td>
+                    <td>Oct 14, 2026</td>
+                    <td><span class="status-badge badge-green">🟢 Green</span></td>
+                    <td>£2,805K</td>
+                    <td>£404K</td>
+                    <td>£107K</td>
+                    <td>£3,732K</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3816">
+                            eQMS Harmonisation & Data Integrity
+                        </a>
+                    </td>
+                    <td>Implement software to improve quality healthcare delivery with data integrity</td>
+                    <td>Core Transformation</td>
+                    <td>Nov 10, 2026</td>
+                    <td><span class="status-badge badge-red">🔴 Red</span></td>
+                    <td>£3,031K</td>
+                    <td>£976K</td>
+                    <td>(£1,157K)</td>
+                    <td>£3,168K</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="quarter-total">Q4 Total Investment: £5.8M Capex | £1.4M OpEx | Expected Returns: £6.9M</p>
+
+        <!-- Projects Extending Beyond 2026 -->
+        <div class="quarter-header">Projects Extending Beyond 2026</div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th style="width: 15%;">Project</th>
+                    <th style="width: 25%;">Description</th>
+                    <th style="width: 12%;">CTO Priority</th>
+                    <th style="width: 8%;">Target Date</th>
+                    <th style="width: 8%;">Status</th>
+                    <th style="width: 6%;">Capex</th>
+                    <th style="width: 6%;">OpEx</th>
+                    <th style="width: 8%;">Cost Variance</th>
+                    <th style="width: 8%;">Benefits</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3836">
+                            Mobile App IT Ops Project
+                        </a>
+                    </td>
+                    <td>Implement new software application to improve quality utilities and operational reliability</td>
+                    <td>Brilliant at the Basics</td>
+                    <td>Mar 18, 2026*</td>
+                    <td><span class="status-badge badge-yellow">🟡 Yellow</span></td>
+                    <td>£726K</td>
+                    <td>£169K</td>
+                    <td>(£302K)</td>
+                    <td>£3,335K</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3837">
+                            NextGen Mobile* Application
+                        </a>
+                    </td>
+                    <td>Create next generation Mobile Application with latest usability and consumer engagement</td>
+                    <td>Core Transformation</td>
+                    <td>Aug 4, 2027</td>
+                    <td><span class="status-badge badge-green">🟢 Green</span></td>
+                    <td>£2,669K</td>
+                    <td>£1,695K</td>
+                    <td>£43K</td>
+                    <td>£4,537K</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=6255">
+                            Smart Card Mobility Project
+                        </a>
+                    </td>
+                    <td>AFH K3500C IT Digital Design/Discovery initiative to enhance service delivery</td>
+                    <td>Brilliant at the Basics</td>
+                    <td>Feb 18, 2027</td>
+                    <td><span class="status-badge badge-green">🟢 Green</span></td>
+                    <td>£34K</td>
+                    <td>£511K</td>
+                    <td>£0K</td>
+                    <td>£2,439K</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3818">
+                            NextGen Customer Insights Project
+                        </a>
+                    </td>
+                    <td>Create next generation Customer Engagement Product leveraging latest Mobile Device Application</td>
+                    <td>Core Transformation</td>
+                    <td>Jan 18, 2027</td>
+                    <td><span class="status-badge badge-green">🟢 Green</span></td>
+                    <td>£888K</td>
+                    <td>£140K</td>
+                    <td>£0K</td>
+                    <td>£629K</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3845">
+                            Legacy HR system UI refresh
+                        </a>
+                    </td>
+                    <td>Extend Legacy Customer Portal with Mobile capabilities</td>
+                    <td><em>(None)</em></td>
+                    <td>Mar 6, 2028</td>
+                    <td><span class="status-badge badge-red">🔴 Red</span></td>
+                    <td>£3,311K</td>
+                    <td>£827K</td>
+                    <td>(£3,606K)</td>
+                    <td>£813K</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="quarter-total">Beyond 2026 Investment: £7.6M Capex | £3.3M OpEx | Expected Returns: £11.8M</p>
+
+        <!-- Completed Projects -->
+        <div class="quarter-header">Completed Projects (2025)</div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th style="width: 15%;">Project</th>
+                    <th style="width: 25%;">Description</th>
+                    <th style="width: 12%;">CTO Priority</th>
+                    <th style="width: 8%;">Completion Date</th>
+                    <th style="width: 8%;">Status</th>
+                    <th style="width: 6%;">Capex</th>
+                    <th style="width: 6%;">OpEx</th>
+                    <th style="width: 8%;">Cost Variance</th>
+                    <th style="width: 8%;">Benefits</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3828">
+                            Global Regulatory Submission Platform
+                        </a>
+                    </td>
+                    <td>Implemented new software application to improve quality financial services and regulatory submission</td>
+                    <td>Digital Platforms</td>
+                    <td>July 2, 2025</td>
+                    <td><span class="status-badge badge-completed">✅ Completed</span></td>
+                    <td>£1,020K</td>
+                    <td>£513K</td>
+                    <td>(£3K)</td>
+                    <td>£3,713K</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p style="font-size: 12px; font-style: italic; margin-top: 20px; color: #666;">
+            *Note: Dates marked with asterisk indicate projects currently in progress that may have passed their original target date and require schedule review.
+        </p>
+    </div>
+
+    <!-- ============================================
+         PAGE BREAK
+         ============================================ -->
+    <div class="page-break"></div>
+
+    <!-- ============================================
+         SECTION 3: WHY DO THESE PROJECTS MATTER
+         ============================================ -->
+    <div class="section">
+        <h2 class="section-title">3. Why Do These Projects Matter?</h2>
+
+        <h3 class="section-subtitle">Strategic Alignment to CTO Priorities</h3>
+
+        <!-- Core Transformation -->
+        <div class="priority-box">
+            <h4>🎯 Core Transformation (5 Projects | £11.5M Benefits)</h4>
+            <p class="description">Modernizing foundational systems and capabilities to enable digital-first operations</p>
+            <ul class="projects-list">
+                <li>
+                    <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3816">
+                        eQMS Harmonisation & Data Integrity
+                    </a> (£3.2M benefits)
+                </li>
+                <li>
+                    <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3818">
+                        NextGen Customer Insights Project
+                    </a> (£629K benefits)
+                </li>
+                <li>
+                    <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3837">
+                        NextGen Mobile* Application
+                    </a> (£4.5M benefits)
+                </li>
+                <li>
+                    <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3838">
+                        NextGen Data *Collaboration
+                    </a> (£3.7M benefits)
+                </li>
+                <li>
+                    <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3839">
+                        NextGen Mobile Offers Rollout
+                    </a> (£3.1M benefits)
+                </li>
+            </ul>
+            <p style="margin-top: 15px; font-size: 14px;">
+                <strong>Strategic Impact:</strong> These projects form the backbone of our digital transformation, replacing legacy systems with modern, scalable platforms that enable data-driven decision making and personalized customer experiences.
+            </p>
+        </div>
+
+        <!-- Digital Platforms -->
+        <div class="priority-box">
+            <h4>🎯 Digital Platforms (3 Projects | £9.4M Benefits)</h4>
+            <p class="description">Building scalable, modern technology platforms for innovation</p>
+            <ul class="projects-list">
+                <li>
+                    <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3817">
+                        NextGen Software Implementation Project
+                    </a> (£2.1M benefits)
+                </li>
+                <li>
+                    <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3835">
+                        Big Data Analytics for Mobile Apps
+                    </a> (£2.8M benefits)
+                </li>
+                <li>
+                    <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3828">
+                        Global Regulatory Submission Platform
+                    </a> - COMPLETED (£3.7M benefits)
+                </li>
+            </ul>
+            <p style="margin-top: 15px; font-size: 14px;">
+                <strong>Strategic Impact:</strong> These platforms enable AI-powered insights, predictive capabilities, and faster innovation cycles while ensuring regulatory compliance.
+            </p>
+        </div>
+
+        <!-- Brilliant at the Basics -->
+        <div class="priority-box">
+            <h4>🎯 Brilliant at the Basics (5 Projects | £9.1M Benefits)</h4>
+            <p class="description">Improving operational efficiency, reliability, and security</p>
+            <ul class="projects-list">
+                <li>
+                    <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=6235">
+                        Stage Gate Project
+                    </a> (£2.4M benefits)
+                </li>
+                <li>
+                    <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=17198">
+                        Hybrid Cloud Platform Optimisation
+                    </a> (£1.0M benefits)
+                </li>
+                <li>
+                    <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3829">
+                        Mobile Identity & Fraud Safeguards
+                    </a> (£1.6M benefits)
+                </li>
+                <li>
+                    <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3836">
+                        Mobile App IT Ops Project
+                    </a> (£3.3M benefits)
+                </li>
+                <li>
+                    <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=6255">
+                        Smart Card Mobility Project
+                    </a> (£2.4M benefits)
+                </li>
+            </ul>
+            <p style="margin-top: 15px; font-size: 14px;">
+                <strong>Strategic Impact:</strong> These projects strengthen our operational foundation, reduce technical debt, enhance security posture, and improve service reliability.
+            </p>
+        </div>
+
+        <!-- Digital Experience -->
+        <div class="priority-box">
+            <h4>🎯 Digital Experience (2 Projects | £610K Benefits)</h4>
+            <p class="description">Enhancing customer-facing capabilities and self-service tools</p>
+            <ul class="projects-list">
+                <li>
+                    <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=17183">
+                        Connect Subscription
+                    </a> (£0K benefits - early stage)
+                </li>
+                <li>
+                    <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=6254">
+                        Risk Calculation App Project
+                    </a> (£610K benefits)
+                </li>
+            </ul>
+            <p style="margin-top: 15px; font-size: 14px;">
+                <strong>Strategic Impact:</strong> These projects improve customer self-service capabilities and expand digital service offerings.
+            </p>
+        </div>
+
+        <!-- ============================================
+             PAGE BREAK
+             ============================================ -->
+        <div class="page-break"></div>
+
+        <h3 class="section-subtitle">Alignment to Strategic Objectives & Key Results</h3>
+
+        <!-- Objective 1 -->
+        <div class="objective-box">
+            <h4>Objective 1: Reduce technical debt to improve performance, security, and maintainability</h4>
+            <p class="objective-target">
+                Target: Decommission 5 legacy systems by end of 2026 | Current Progress: 20% (1 system decommissioned)
+            </p>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 20%;">20%</div>
+            </div>
+            <p style="margin-top: 15px;"><strong>Supporting Projects:</strong></p>
+            <ul class="projects-list">
+                <li>
+                    <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3816">
+                        eQMS Harmonisation & Data Integrity
+                    </a> - <span class="status-red">🔴 Red</span> - Cost overrun of £1.16M threatening timeline
+                </li>
+            </ul>
+            <p class="objective-impact">
+                <strong>Impact:</strong> Modernizes quality management systems, eliminates legacy technical debt, reduces maintenance costs by £1.5M
+            </p>
+        </div>
+
+        <!-- Objective 2 -->
+        <div class="objective-box">
+            <h4>Objective 2: Simplify and automate core operations to deliver faster, more reliable customer service</h4>
+            <p class="objective-target">
+                Target: Reduce processing time by 30% and decrease operational failure demand by 25% | Current Progress: 10-12%
+            </p>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 12%;">12%</div>
+            </div>
+            <p style="margin-top: 15px;"><strong>Supporting Projects:</strong></p>
+            <ul class="projects-list">
+                <li>
+                    <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=6235">
+                        Stage Gate Project
+                    </a> - <span class="status-green">🟢 Green</span> - On track for May 2026 delivery
+                </li>
+            </ul>
+            <p class="objective-impact">
+                <strong>Impact:</strong> Automates quality software delivery processes, reduces manual handoffs, expected to contribute 8-10% toward operational failure reduction target
+            </p>
+        </div>
+
+        <!-- Objective 3 -->
+        <div class="objective-box">
+            <h4>Objective 3: Strengthen regulatory compliance and quality oversight through modernised systems</h4>
+            <p class="objective-target">
+                Target: Reduce submission cycle time by 25% and increase audit readiness to 95% | Current Progress: 32%
+            </p>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 32%;">32%</div>
+            </div>
+            <p style="margin-top: 15px;"><strong>Supporting Projects:</strong></p>
+            <ul class="projects-list">
+                <li>
+                    <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=17198">
+                        Hybrid Cloud Platform Optimisation
+                    </a> - <span class="status-green">🟢 Green</span> - On track
+                </li>
+                <li>
+                    <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3828">
+                        Global Regulatory Submission Platform
+                    </a> - ✅ COMPLETED July 2025
+                </li>
+            </ul>
+            <p class="objective-impact">
+                <strong>Impact:</strong> Delivered 25% reduction in regulatory submission cycle time; submission cycle time reduced by 9% (36% of target); audit readiness at 84%
+            </p>
+        </div>
+
+        <!-- Objective 4 -->
+        <div class="objective-box">
+            <h4>Objective 4: Deepen customer engagement and trust through personalised, data-driven experiences</h4>
+            <p class="objective-target">
+                Target: Achieve 50% adoption of personalized digital services and reduce response times by 10% | Current Progress: 76%
+            </p>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 76%;">76%</div>
+            </div>
+            <p style="margin-top: 15px;"><strong>Supporting Projects:</strong></p>
+            <ul class="projects-list">
+                <li>
+                    <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3818">
+                        NextGen Customer Insights Project
+                    </a> - <span class="status-green">🟢 Green</span>
+                </li>
+                <li>
+                    <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3837">
+                        NextGen Mobile* Application
+                    </a> - <span class="status-green">🟢 Green</span>
+                </li>
+                <li>
+                    <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3839">
+                        NextGen Mobile Offers Rollout
+                    </a> - <span class="status-green">🟢 Green</span>
+                </li>
+                <li>
+                    <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3835">
+                        Big Data Analytics for Mobile Apps
+                    </a> - <span class="status-green">🟢 Green</span>
+                </li>
+            </ul>
+            <p class="objective-impact">
+                <strong>Impact:</strong> Digital service adoption at 43% (86% progress toward 50% target); response time reduced by 7% (67% progress toward 10% target)
+            </p>
+        </div>
+
+        <!-- Objective 5 -->
+        <div class="objective-box">
+            <h4>Objective 5: Accelerate feature delivery velocity to enable rapid innovation</h4>
+            <p class="objective-target">
+                Target: Reduce deployment cycle time from 14 to 7 days and increase automation success to 95% | Current Progress: 14%
+            </p>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 14%;">14%</div>
+            </div>
+            <p style="margin-top: 15px;"><strong>Supporting Projects:</strong></p>
+            <ul class="projects-list">
+                <li>
+                    <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=17198">
+                        Hybrid Cloud Platform Optimisation
+                    </a> - <span class="status-green">🟢 Green</span>
+                </li>
+                <li>
+                    <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3836">
+                        Mobile App IT Ops Project
+                    </a> - <span class="status-yellow">🟡 Yellow</span> - Cost overrun and schedule risk
+                </li>
+            </ul>
+            <p class="objective-impact">
+                <strong>Impact:</strong> Deployment cycle time reduced to 12 days (29% progress toward 7-day target); automation success rate at 75%
+            </p>
+        </div>
+
+        <!-- Portfolio Impact Summary -->
+        <h3 class="section-subtitle">Portfolio Impact Summary by Objective</h3>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Strategic Objective</th>
+                    <th>Supporting Projects</th>
+                    <th>Total Investment</th>
+                    <th>Expected Benefits</th>
+                    <th>Progress</th>
+                    <th>Risk Level</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Reduce Technical Debt</td>
+                    <td>1 project</td>
+                    <td>£4.0M</td>
+                    <td>£3.2M</td>
+                    <td>20%</td>
+                    <td><span class="status-badge badge-red">🔴 High</span></td>
+                </tr>
+                <tr>
+                    <td>Simplify Core Operations</td>
+                    <td>1 project</td>
+                    <td>£299K</td>
+                    <td>£2.4M</td>
+                    <td>12%</td>
+                    <td><span class="status-badge badge-green">🟢 Low</span></td>
+                </tr>
+                <tr>
+                    <td>Strengthen Compliance</td>
+                    <td>2 projects</td>
+                    <td>£1.1M</td>
+                    <td>£4.7M</td>
+                    <td>32%</td>
+                    <td><span class="status-badge badge-green">🟢 Low</span></td>
+                </tr>
+                <tr>
+                    <td>Deepen Customer Engagement</td>
+                    <td>4 projects</td>
+                    <td>£7.2M</td>
+                    <td>£11.0M</td>
+                    <td>76%</td>
+                    <td><span class="status-badge badge-green">🟢 Low</span></td>
+                </tr>
+                <tr>
+                    <td>Accelerate Delivery Velocity</td>
+                    <td>2 projects</td>
+                    <td>£801K</td>
+                    <td>£4.3M</td>
+                    <td>14%</td>
+                    <td><span class="status-badge badge-yellow">🟡 Medium</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ============================================
+         PAGE BREAK
+         ============================================ -->
+    <div class="page-break"></div>
+
+    <!-- ============================================
+         SECTION 4: KEY RISKS & DEPENDENCIES
+         ============================================ -->
+    <div class="section">
+        <h2 class="section-title">4. Key Risks & Dependencies</h2>
+
+        <h3 class="section-subtitle">🔴 CRITICAL RISKS - Immediate Executive Action Required</h3>
+
+        <!-- Risk 1 -->
+        <div class="risk-box">
+            <h4>Risk 1: eQMS Harmonisation & Data Integrity Project Failure</h4>
+            <p class="project-name">
+                Project: <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3816">
+                    eQMS Harmonisation & Data Integrity
+                </a> (Project 3816)
+            </p>
+            <ul class="risk-details">
+                <li><strong>Status:</strong> 🔴 Red | 16% Complete | Target: Nov 10, 2026</li>
+                <li><strong>Financial Impact:</strong> £1.16M cost overrun (38% over budget)</li>
+                <li><strong>Strategic Impact:</strong> Directly threatens Objective: Reduce technical debt - currently only 20% toward 5 system decommissioning target</li>
+                <li><strong>Cascade Risk:</strong> Delays will push technical debt reduction into 2027, missing annual targets</li>
+                <li><strong>Logged Risks:</strong> 1 active risk requiring mitigation</li>
+            </ul>
+            <div class="risk-mitigation">
+                <p><strong>Mitigation Actions Required:</strong></p>
+                <ul class="risk-details">
+                    <li>✅ Immediate executive steering committee review (by March 20, 2026)</li>
+                    <li>✅ Scope reduction analysis - identify must-have vs. nice-to-have features</li>
+                    <li>✅ Budget re-baseline or secure additional funding</li>
+                    <li>✅ Consider phased delivery approach to meet critical Nov 2026 milestone</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Risk 2 -->
+        <div class="risk-box">
+            <h4>Risk 2: Legacy HR System UI Refresh - Strategic Misalignment</h4>
+            <p class="project-name">
+                Project: <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3845">
+                    Legacy HR system UI refresh
+                </a> (Project 3845)
+            </p>
+            <ul class="risk-details">
+                <li><strong>Status:</strong> 🔴 Red | 0% Complete | Target: Mar 6, 2028</li>
+                <li><strong>Financial Impact:</strong> £3.61M cost overrun (87% over budget) - <strong>LARGEST VARIANCE IN PORTFOLIO</strong></li>
+                <li><strong>Strategic Impact:</strong> Rated "Poor Alignment" to strategic priorities; No CTO Priority assignment; Not linked to any strategic objectives</li>
+                <li><strong>ROI Concern:</strong> £813K benefits vs. £4.1M total cost</li>
+                <li><strong>Logged Risks:</strong> 2 active risks</li>
+            </ul>
+            <div class="risk-recommendation">
+                RECOMMENDATION: IMMEDIATE GO/NO-GO DECISION REQUIRED
+            </div>
+            <div class="risk-mitigation">
+                <p><strong>Mitigation Options:</strong></p>
+                <ul class="risk-details">
+                    <li>1. <strong>Cancel Project:</strong> Reallocate £4.1M to higher-priority initiatives</li>
+                    <li>2. <strong>Major Scope Reduction:</strong> Limit to critical security/compliance updates only</li>
+                    <li>3. <strong>Defer to 2027:</strong> Reassess strategic fit after higher-priority projects complete</li>
+                </ul>
+                <p style="margin-top: 10px;"><strong>Decision Deadline:</strong> March 31, 2026 (end of Q1)</p>
+            </div>
+        </div>
+
+        <!-- Risk 3 -->
+        <div class="risk-box">
+            <h4>Risk 3: Risk Calculation App - Q2 Delivery at Risk</h4>
+            <p class="project-name">
+                Project: <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=6254">
+                    Risk Calculation App Project
+                </a> (Project 6254)
+            </p>
+            <ul class="risk-details">
+                <li><strong>Status:</strong> 🔴 Red | 5% Complete | Target: May 11, 2026 (59 days away)</li>
+                <li><strong>Financial Impact:</strong> £1.76M cost overrun (83% over budget)</li>
+                <li><strong>Strategic Impact:</strong> Q2 2026 delivery commitment at high risk; Delays customer self-service enhancements</li>
+                <li><strong>Logged Risks:</strong> 1 active risk</li>
+            </ul>
+            <div class="risk-mitigation">
+                <p><strong>Mitigation Actions Required:</strong></p>
+                <ul class="risk-details">
+                    <li>✅ Accelerated recovery plan with weekly executive reviews</li>
+                    <li>✅ Resource augmentation - add specialized development capacity</li>
+                    <li>✅ Scope negotiation - identify MVP for May delivery</li>
+                    <li>✅ Contingency: Prepare stakeholder communication for potential delay to Q3</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3 class="section-subtitle">🟡 MEDIUM PRIORITY RISKS - Enhanced Monitoring Required</h3>
+
+        <!-- Risk 4 -->
+        <div class="risk-box medium">
+            <h4>Risk 4: Mobile App IT Ops - Schedule Slippage</h4>
+            <p class="project-name">
+                Project: <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3836">
+                    Mobile App IT Ops Project
+                </a> (Project 3836)
+            </p>
+            <ul class="risk-details">
+                <li><strong>Status:</strong> 🟡 Yellow | 16% Complete | Target: Mar 18, 2026 (ALREADY PASSED)</li>
+                <li><strong>Financial Impact:</strong> £302K cost overrun (34% over budget)</li>
+                <li><strong>Strategic Impact:</strong> Foundation for other mobile initiatives - delays cascade</li>
+                <li><strong>Logged Risks:</strong> 4 active risks (highest count in portfolio)</li>
+            </ul>
+            <div class="risk-mitigation">
+                <p><strong>Mitigation Actions:</strong></p>
+                <ul class="risk-details">
+                    <li>✅ Immediate schedule re-baseline required</li>
+                    <li>✅ Root cause analysis of 4 logged risks</li>
+                    <li>✅ Resource capacity assessment</li>
+                    <li>✅ Monthly executive reviews until back on track</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3 class="section-subtitle">CRITICAL DEPENDENCIES</h3>
+
+        <!-- Dependency 1 -->
+        <div class="dependency-box">
+            <h4>Dependency 1: NextGen Mobile Platform Foundation</h4>
+            <p class="anchor-project">
+                <strong>Anchor Project:</strong> 
+                <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3837">
+                    NextGen Mobile* Application
+                </a> (Aug 2027)
+            </p>
+            <p style="margin-top: 10px;"><strong>Dependent Projects:</strong></p>
+            <ul class="dependent-projects">
+                <li>NextGen Data *Collaboration (Oct 2026) - <span class="dependency-conflict">DEPENDENCY CONFLICT</span></li>
+                <li>NextGen Mobile Offers Rollout (July 2026) - <span class="dependency-conflict">DEPENDENCY CONFLICT</span></li>
+                <li>NextGen Customer Insights Project (Jan 2027) - <span class="dependency-conflict">DEPENDENCY CONFLICT</span></li>
+            </ul>
+            <p class="dependency-risk">
+                Risk: Three projects scheduled to complete BEFORE their foundation platform is delivered
+            </p>
+            <p style="margin-top: 15px;"><strong>Mitigation Required:</strong></p>
+            <ul class="risk-details">
+                <li>✅ Immediate dependency mapping workshop (by March 20, 2026)</li>
+                <li>✅ Determine if projects can proceed with interim platform versions</li>
+                <li>✅ Consider accelerating NextGen Mobile* Application or deferring dependent projects</li>
+            </ul>
+        </div>
+
+        <!-- Dependency 2 -->
+        <div class="dependency-box">
+            <h4>Dependency 2: Hybrid Cloud Infrastructure</h4>
+            <p class="anchor-project">
+                <strong>Anchor Project:</strong> 
+                <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=17198">
+                    Hybrid Cloud Platform Optimisation
+                </a> (Q4 2027)
+            </p>
+            <ul class="dependent-projects">
+                <li>Multiple digital platform projects require cloud infrastructure</li>
+                <li>Regulatory compliance projects need enhanced security frameworks</li>
+                <li>Big Data Analytics requires scalable compute capacity</li>
+            </ul>
+            <p style="margin-top: 15px;">
+                <strong>Risk:</strong> Infrastructure readiness for application deployments
+            </p>
+            <p style="margin-top: 10px;">
+                <strong>Mitigation:</strong> Phased infrastructure delivery aligned to application needs
+            </p>
+        </div>
+
+        <!-- Dependency 3 -->
+        <div class="dependency-box">
+            <h4>Dependency 3: Big Data Analytics Capabilities</h4>
+            <p class="anchor-project">
+                <strong>Anchor Project:</strong> 
+                <a href="https://scdemo509.pvcloud.com/planview/PLP/EntityLandingPage.aspx?pt=PROJECT&st=$Plan&scode=3835">
+                    Big Data Analytics for Mobile Apps
+                </a> (Oct 2025 - nearing completion)
+            </p>
+            <ul class="dependent-projects">
+                <li>NextGen Mobile Offers Rollout - Requires analytics for targeted offers</li>
+                <li>NextGen Customer Insights Project - Requires data-driven insights</li>
+            </ul>
+            <p style="margin-top: 15px;">
+                <strong>Status:</strong> <span class="status-green">✅ Low risk</span> - foundation project nearing completion
+            </p>
+        </div>
+
+        <h3 class="section-subtitle">QUARTERLY RISK OUTLOOK</h3>
+
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th style="width: 15%;">Quarter</th>
+                    <th style="width: 40%;">Critical Deliverables</th>
+                    <th style="width: 15%;">Risk Level</th>
+                    <th style="width: 30%;">Key Concerns</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Q2 2026</strong><br>(Apr-Jun)</td>
+                    <td>
+                        • Risk Calculation App (May 11)<br>
+                        • Stage Gate Project (May 19)<br>
+                        • NextGen Software Implementation (Jun 26)
+                    </td>
+                    <td><span class="status-badge badge-red">🔴 HIGH</span></td>
+                    <td>1 of 3 Q2 deliverables at red status</td>
+                </tr>
+                <tr>
+                    <td><strong>Q3 2026</strong><br>(Jul-Sep)</td>
+                    <td>
+                        • NextGen Mobile Offers Rollout (Jul 8)<br>
+                        • Two projects with passed dates requiring closure
+                    </td>
+                    <td><span class="status-badge badge-yellow">🟡 MEDIUM</span></td>
+                    <td>Dependency risks but projects are green</td>
+                </tr>
+                <tr>
+                    <td><strong>Q4 2026</strong><br>(Oct-Dec)</td>
+                    <td>
+                        • eQMS Harmonisation (Nov 10)<br>
+                        • NextGen Data Collaboration (Oct 14)<br>
+                        • Connect Subscription (Oct 16)
+                    </td>
+                    <td><span class="status-badge badge-red">🔴 HIGH</span></td>
+                    <td>Major strategic project at red status; dependency conflicts</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3 class="section-subtitle">EXECUTIVE ACTIONS REQUIRED (Next 30 Days)</h3>
+
+        <table class="action-table">
+            <thead>
+                <tr>
+                    <th style="width: 10%;">Priority</th>
+                    <th style="width: 35%;">Action</th>
+                    <th style="width: 15%;">Owner</th>
+                    <th style="width: 15%;">Deadline</th>
+                    <th style="width: 25%;">Impact</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="priority-p0">
+                    <td>🔴 P0</td>
+                    <td>Convene steering committee for 3 red projects</td>
+                    <td>VP Portfolio</td>
+                    <td>Mar 20, 2026</td>
+                    <td>£6.5M at risk</td>
+                </tr>
+                <tr class="priority-p0">
+                    <td>🔴 P0</td>
+                    <td>Go/No-Go decision on Legacy HR system</td>
+                    <td>Executive Team</td>
+                    <td>Mar 31, 2026</td>
+                    <td>£4.1M investment</td>
+                </tr>
+                <tr class="priority-p0">
+                    <td>🔴 P0</td>
+                    <td>Resolve NextGen Mobile platform dependencies</td>
+                    <td>Program Manager</td>
+                    <td>Mar 20, 2026</td>
+                    <td>4 projects affected</td>
+                </tr>
+                <tr class="priority-p1">
+                    <td>🟡 P1</td>
+                    <td>Mobile App IT Ops schedule re-baseline</td>
+                    <td>Project Manager</td>
+                    <td>Mar 31, 2026</td>
+                    <td>Foundation project</td>
+                </tr>
+                <tr class="priority-p1">
+                    <td>🟡 P1</td>
+                    <td>Resource capacity analysis (mobile dev)</td>
+                    <td>Resource Manager</td>
+                    <td>Mar 31, 2026</td>
+                    <td>7 projects affected</td>
+                </tr>
+                <tr class="priority-p1">
+                    <td>🟡 P1</td>
+                    <td>Update schedules for passed-date projects</td>
+                    <td>Project Managers</td>
+                    <td>Mar 31, 2026</td>
+                    <td>Planning accuracy</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3 class="section-subtitle">PORTFOLIO-LEVEL RISK SUMMARY</h3>
+
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th style="width: 30%;">Risk Category</th>
+                    <th style="width: 15%;">Count</th>
+                    <th style="width: 25%;">Total Exposure</th>
+                    <th style="width: 30%;">Mitigation Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Projects at Red Status</strong></td>
+                    <td>3</td>
+                    <td>£6.5M cost overrun</td>
+                    <td>Requires immediate action</td>
+                </tr>
+                <tr>
+                    <td><strong>Projects at Yellow Status</strong></td>
+                    <td>1</td>
+                    <td>£302K cost overrun</td>
+                    <td>Enhanced monitoring</td>
+                </tr>
+                <tr>
+                    <td><strong>Projects with Active Risks</strong></td>
+                    <td>9 of 16</td>
+                    <td>20+ logged risks</td>
+                    <td>Varies by project</td>
+                </tr>
+                <tr>
+                    <td><strong>Schedule Conflicts</strong></td>
+                    <td>3</td>
+                    <td>Dependency misalignment</td>
+                    <td>Requires resolution</td>
+                </tr>
+                <tr>
+                    <td><strong>Resource Constraints</strong></td>
+                    <td>3 areas</td>
+                    <td>Capacity bottlenecks</td>
+                    <td>Planning underway</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3 class="section-subtitle">RECOMMENDATIONS</h3>
+
+        <div style="background: var(--gsk-light-gray); padding: 20px; border-left: 5px solid var(--gsk-orange); border-radius: 5px; margin-top: 20px;">
+            <ol style="margin-left: 20px; line-height: 2;">
+                <li><strong>Financial Governance:</strong> Implement enhanced cost controls and bi-weekly financial reviews for all projects with variances >£100K</li>
+                <li><strong>Dependency Management:</strong> Establish cross-project dependency management process with monthly reviews to prevent cascading delays</li>
+                <li><strong>Resource Planning:</strong> Conduct comprehensive capacity analysis for mobile development and data engineering teams; consider external augmentation</li>
+                <li><strong>Portfolio Optimization:</strong> Seriously consider canceling or deferring Legacy HR system UI refresh to reallocate £4.1M to higher-priority initiatives</li>
+                <li><strong>Risk Mitigation:</strong> Establish executive risk review cadence for all red/yellow projects with mandatory recovery plans</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <div class="footer">
+        <p><strong>Next Review Date:</strong> June 15, 2026 (Q2 Review)</p>
+        <p style="margin-top: 10px;">This review reflects portfolio status as of March 12, 2026.</p>
+        <p>For detailed project information and real-time updates, please access the DPTF Work Portfolio in Planview Portfolios.</p>
+        <p class="confidential">GSK | DPTF Work Portfolio | Confidential</p>
+    </div>
+
+</body>
+</html>
