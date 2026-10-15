@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Resource Utilisation Dashboard</title>
+<style>
+:root{--bg:#f5f5f5;--card:#ffffff;--ink:#222222;--mut:#222222a3;--line:#dddddd;--c:#3c7f80;--e:#1b6bdd;--warn:#c25700;--err:#d41616;--ok:#008622;--hi:#e8f0fc;
+--r1:#1b6bdd;--r2:#4a9fa1;--r3:#a254a6;--r4:#e97407;--r5:#ed5e80;--r6:#5f6f91;--on:#ffffff}
+@media (prefers-color-scheme:dark){:root{--bg:#13171f;--card:#1f2532;--ink:#f1f2f3;--mut:#9ea8bd;--line:#353f55;--c:#75c1c2;--e:#76a6eb;--warn:#f59b38;--err:#f86363;--ok:#5bbe72;--hi:#0b2b58;
+--r1:#76a6eb;--r2:#75c1c2;--r3:#c879cd;--r4:#f59b38;--r5:#f98ba4;--r6:#7e8caa;--on:#13171f}}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--ink);font:13px/1.35 system-ui,-apple-system,"Segoe UI",sans-serif;display:flex;flex-direction:column;padding:10px 12px;gap:8px}
+header{display:flex;align-items:center;justify-content:space-between;gap:10px;flex:none}
+h1{font-size:15px;font-weight:650}
+.sub{color:var(--mut);font-size:11px}
+nav{display:flex;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:9px;padding:3px}
+nav button{white-space:nowrap;border:0;background:none;color:var(--mut);font:inherit;font-weight:550;padding:5px 12px;border-radius:6px;cursor:pointer}
+nav button.on{background:var(--e);color:#fff}
+main{flex:1;min-height:0;display:flex}
+section{display:none;flex:1;min-width:0;min-height:0;flex-direction:column;gap:8px}
+section.on{display:flex}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;flex:none}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 12px;border-left:4px solid var(--c)}
+.kpi.e{border-left-color:var(--e)}
+.kpi.c{border-left-color:var(--c)}.kpi .v{font-size:22px;font-weight:700;line-height:1.1}
+.kpi .l{color:var(--mut);font-size:11px}
+.row{display:flex;gap:8px;flex:1;min-height:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px;display:flex;flex-direction:column;min-width:0;min-height:0}
+.card h2{font-size:15px;font-weight:650;display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:4px;flex:none}
+.chart{flex:1;min-height:0;position:relative}
+.chart svg{position:absolute;inset:0;width:100%;height:100%}
+.tog{display:flex;gap:2px;font-weight:500}
+.tog button{font-size:12px!important;border:1px solid var(--line);background:none;color:var(--mut);font:inherit;font-size:11px;padding:1px 8px;cursor:pointer}
+.tog button:first-child{border-radius:5px 0 0 5px}.tog button:last-child{border-radius:0 5px 5px 0}
+.tog button.on{background:var(--e);color:#fff;border-color:var(--e)}
+.legend{display:flex;gap:10px;flex-wrap:wrap;font-size:11px;color:var(--mut);flex:none;margin-top:2px}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px}
+table{border-collapse:collapse;width:100%;font-size:11.5px}
+th{color:var(--mut);font-weight:550;text-align:center;padding:2px 3px;font-size:10.5px}
+td{padding:2px 3px;text-align:center}
+td.n,th.n{text-align:left;white-space:nowrap}
+td.h{border-radius:3px;font-variant-numeric:tabular-nums;font-size:10.5px}
+.hm td.h{font-size:13px;padding:8px 3px}.hm td.n{padding:8px 6px}.hm th{color:var(--ink);font-size:11.5px;font-weight:650}.hm .nm{color:var(--ink);font-weight:600;font-size:13.5px}.hm .rl{color:var(--ink);opacity:.8;font-size:13px}.hm tr.gr td{background:var(--hi);color:var(--ink);font-weight:700;font-size:12.5px;text-align:left;padding:5px 8px;border-radius:4px}.hm.cp th{font-size:12.5px;padding:6px 4px}.hm.cp td.h{font-size:14px;padding:7px 4px}.hm.cp tr.gr td{font-size:13.5px}.grp td{font-weight:650;font-size:11px;color:var(--mut);text-align:left;padding-top:6px}
+.note{background:var(--card);border:1px dashed var(--line);border-radius:8px;padding:5px 10px;color:var(--mut);font-size:11px;flex:none}
+.note b{color:var(--warn)}
+.tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--card);padding:4px 8px;border-radius:6px;font-size:11px;display:none;z-index:9;white-space:nowrap}
+.bar{height:7px;border-radius:4px;background:var(--line);overflow:hidden;min-width:60px}.bar>i{display:block;height:100%}
+.ins{list-style:none;padding:0;font-size:15px;line-height:1.45;display:flex;flex-direction:column;justify-content:space-evenly;gap:10px;flex:1;overflow:auto}
+.ins li{padding:4px 0 4px 12px;border-left:3px solid var(--e)}
+.ins li.w{border-left-color:var(--warn)}
+</style></head><body>
+<header>
+ <div><h1>Resource Utilisation – Engineering &amp; Contractors</h1><div class="sub" id="sub"></div></div>
+ <nav id="nav"></nav>
+</header>
+<main id="main"></main>
+<div class="tip" id="tip"></div>
+<script>
+const D={"months":["2026-04","2026-05","2026-06","2026-07","2026-08","2026-09","2026-10","2026-11","2026-12","2027-01","2027-02"],"people":[{"name":"John Rogers","group":"Contractors","role":"Applications Engineer","cap":[176,168,176,184,168,176,176,168,184,168,160],"asg":[0,0,0,0,0,0,0,0,0,72,152]},{"name":"Jennifer Evans","group":"Contractors","role":"Consultant","cap":[176,168,176,184,168,176,176,168,184,168,160],"asg":[0,0,0,0,0,0,0,168,184,168,160]},{"name":"Colin Edwards","group":"Contractors","role":"Engineer","cap":[176,168,176,184,168,176,176,168,184,168,160],"asg":[0,0,0,120,104,120,176,84,92,120,154.67]},{"name":"Bill Smith","group":"Contractors","role":"Products Architect","cap":[176,168,176,184,168,176,176,168,184,168,160],"asg":[0,0,0,0,80,80,0,84,92,120,154.67]},{"name":"Holly Thomson","group":"Contractors","role":"Project Manager","cap":[176,168,176,184,168,176,176,168,184,168,160],"asg":[0,80,176,64,144,152,176,168,184,96,10.67]},{"name":"Tania Holly","group":"Contractors","role":"Project Manager","cap":[176,168,176,184,168,176,176,168,184,168,160],"asg":[0,80,176,184,168,176,176,112,184,96,152]},{"name":"Charles Develpo","group":"Engineering","role":"Applications Engineer","cap":[176,168,176,184,168,176,176,168,184,168,160],"asg":[0,80,124,166,168,154,90,162,46,102,44]},{"name":"Jane DeVops","group":"Engineering","role":"Applications Engineer","cap":[176,168,176,184,168,176,176,168,184,168,160],"asg":[46,51.33,133.33,346,252,212,122,148,176,168,140]},{"name":"Jim Hackman","group":"Engineering","role":"Digital Engineer","cap":[176,168,176,184,168,176,176,168,184,168,160],"asg":[40,0,4,126,88,154,90,142,54,186,124]},{"name":"Liz Carter","group":"Engineering","role":"Digital Engineer","cap":[176,168,176,184,168,176,176,168,184,168,160],"asg":[0,0,38,242,252,172,102,118,248,84,60]},{"name":"Eric Executive","group":"Engineering","role":"Products Architect","cap":[176,168,176,184,168,176,176,168,184,168,160],"asg":[74,239.33,319.33,68,144,316,340,162,104,64,40]},{"name":"Paul Projectman","group":"Engineering","role":"Project Manager","cap":[176,168,176,184,168,176,176,168,184,168,160],"asg":[40,180,168,132,168,152,200,136,184,132,208]}],"proj":{"Holly Thomson":{"PROJECT: NextGen Stimulator":[56,0,0,0,0,0],"PROJECT: DBS Wireless Sensor":[96,176,168,184,96,10.67],"PROJECT: CAIR Wearable Patient Monitor Device-SG":[0,0,0,0,0,0]},"Paul Projectman":{"Workplace Facilities Upgrade":[0,0,24,56,0,0],"Secure Access & Identity Verification":[0,0,0,0,54,76],"Operational Systems Reimplementation":[12,68,0,0,0,0],"Microsoft 365 Modernisation":[0,0,44,36,0,0],"Internal Cloud Migration":[32,48,0,0,0,0],"Facilities Refurbishment Programme":[76,84,0,0,24,56],"Digital Application Delivery":[0,0,68,92,0,0],"Custom App for Meeting Notes":[32,0,0,0,0,0],"Connected Operations Project":[0,0,0,0,54,76]},"Tania Holly":{"PROJECT: CT Based Alignment-SG":[176,176,0,0,0,0],"PROJECT: CAIR Wearable Patient Monitor Device-SG":[0,0,112,184,96,80],"PROJECT: CAIR Insights Application Project-SG":[0,0,0,0,0,72]},"Bill Smith":{"PROJECT: NextGen Stimulator":[0,0,84,92,84,80],"PROJECT: DBS Wireless Sensor":[80,0,0,0,36,74.67],"PROJECT: CT Based Alignment-SG":[0,0,0,0,0,0]},"Eric Executive":{"Supplier Onboarding & Procurement Enablement":[24,56,0,0,0,0],"Operations Workflow Automation":[52,68,10,0,0,20],"Operational Performance Enhancement":[40,0,0,0,0,0],"Mobile Application & Experience Monitoring":[0,80,80,0,0,20],"Internal Process Improvement Initiative":[32,88,40,0,0,0],"Enterprise Security Enhancement":[40,40,0,0,0,0],"Custom App for Meeting Notes":[40,0,0,0,0,0],"Chat Bot Integration":[0,0,32,88,0,0],"Business Digital Hub Modernisation":[88,8,0,16,64,0]},"Colin Edwards":{"PROJECT: NextGen Stimulator":[120,176,84,92,84,80],"PROJECT: DBS Wireless Sensor":[0,0,0,0,36,74.67],"PROJECT: CAIR Wearable Patient Monitor Device-SG":[0,0,0,0,0,0]},"Jim Hackman":{"Workplace Facilities Upgrade":[44,44,30,0,0,0],"Secure Access & Identity Verification":[0,0,0,0,0,2],"Operational Systems Reimplementation":[38,0,0,0,0,0],"Microsoft 365 Modernisation":[44,44,30,0,0,0],"Internal Cloud Migration":[28,0,0,0,0,0],"Facilities Refurbishment Programme":[0,2,42,46,30,0],"Digital Application Delivery":[0,0,0,0,42,40],"Connected Operations Project":[0,0,0,0,30,2],"Chat Bot Integration":[0,0,40,8,84,80]},"Liz Carter":{"Supplier Onboarding & Procurement Enablement":[64,0,0,0,0,0],"Operations Workflow Automation":[0,0,32,46,42,30],"Operational Performance Enhancement":[2,0,0,0,0,0],"Mobile Application & Experience Monitoring":[0,0,2,46,42,30],"Internal Process Improvement Initiative":[72,22,0,0,0,0],"Enterprise Security Enhancement":[34,0,0,0,0,0],"Chat Bot Integration":[0,0,0,80,0,0],"Business Digital Hub Modernisation":[0,80,84,76,0,0]},"Jennifer Evans":{"PROJECT: CT Based Alignment-SG":[0,0,168,184,168,160],"PROJECT: CAIR Wearable Patient Monitor Device-SG":[0,0,0,0,0,0]},"Charles Develpo":{"Workplace Facilities Upgrade":[44,44,30,0,0,0],"Secure Access & Identity Verification":[0,0,0,0,30,2],"Operational Systems Reimplementation":[38,0,0,0,0,0],"Microsoft 365 Modernisation":[44,44,30,0,0,0],"Internal Cloud Migration":[28,0,0,0,0,0],"Factory Equipment Connectivity Upgrade":[0,0,0,0,0,0],"Facilities Refurbishment Programme":[0,2,42,46,30,0],"Digital Application Delivery":[0,0,0,0,42,40],"Connected Operations Project":[0,0,0,0,0,2],"Chat Bot Integration":[0,0,60,0,0,0]},"Jane DeVops":{"Supplier Onboarding & Procurement Enablement":[64,0,0,0,0,0],"Operations Workflow Automation":[0,20,42,46,42,30],"Operational Performance Enhancement":[42,0,0,0,0,0],"Mobile Application & Experience Monitoring":[0,0,2,46,42,30],"Internal Process Improvement Initiative":[72,22,0,0,0,0],"Factory Equipment Connectivity Upgrade":[0,0,0,0,0,0],"Enterprise Security Enhancement":[34,0,0,0,0,0],"Chat Bot Integration":[0,0,20,8,84,80],"Business Digital Hub Modernisation":[0,80,84,76,0,0]},"John Rogers":{"Undefined":[0,0,0,0,0,0],"PROJECT: CAIR Wearable Patient Monitor Device-SG":[0,0,0,0,72,80],"PROJECT: CAIR Insights Application Project-SG":[0,0,0,0,0,72]}}};
+const PJ=D.proj;
+const MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const lab=m=>MN[+m.slice(5)-1]+(m.slice(2,4)==='26'?'':" '"+m.slice(2,4));
+const M=D.months, NOW=M.indexOf('2026-10'), ALL=M.map((_,i)=>i), PIX=[5,6,7,8,9,10]; // project data: Sep 26 – Feb 27
+const P=D.people, G={Contractors:P.filter(p=>p.group==='Contractors'),Engineering:P.filter(p=>p.group==='Engineering')};
+const sum=a=>a.reduce((x,y)=>x+y,0);
+const agg=(ps,k)=>M.map((_,i)=>sum(ps.map(p=>p[k][i])));
+const pct=(a,c)=>c?a/c:0, f0=n=>Math.round(n).toLocaleString(), fp=n=>Math.round(n*100)+'%';
+const ROLES=[...new Set(P.map(p=>p.role))];
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const sc=i=>css('--r'+(i%6+1));
+const short=n=>n.replace('PROJECT: ','').replace(/-SG$/,'');
+const NS='http://www.w3.org/2000/svg';
+const tip=document.getElementById('tip');
+function showTip(e,t){tip.style.display='block';tip.innerHTML=t;tip.style.left=Math.min(e.clientX+12,innerWidth-tip.offsetWidth-6)+'px';tip.style.top=(e.clientY+12)+'px'}
+function hideTip(){tip.style.display='none'}
+// project hours: group -> {project: [6 months]}
+function projOf(g){const o={};G[g].forEach(p=>{const d=PJ[p.name]||{};for(const k in d){o[k]=o[k]||PIX.map(()=>0);d[k].forEach((v,i)=>o[k][i]+=v)}});return o}
+
+function svgOf(host){host.innerHTML='';const w=host.clientWidth,h=host.clientHeight;const s=document.createElementNS(NS,'svg');s.setAttribute('viewBox',`0 0 ${w} ${h}`);host.appendChild(s);return {s,w,h}}
+function el(p,t,a,txt){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;p.appendChild(e);return e}
+function axes(s,w,h,L,B,T,max,fmt,ix){
+  for(let i=0;i<=4;i++){const v=max*i/4,y=h-B-(h-B-T)*i/4;
+    el(s,'line',{x1:L,x2:w-6,y1:y,y2:y,stroke:css('--line')});
+    el(s,'text',{x:L-5,y:y+3,'text-anchor':'end','font-size':10,fill:css('--mut')},fmt(v))}
+  ix.forEach((mi,i)=>{const x=L+(w-L-6)*(i+.5)/ix.length;
+    el(s,'text',{x,y:h-B+13,'text-anchor':'middle','font-size':10,fill:mi===NOW?css('--ink'):css('--mut'),'font-weight':mi===NOW?700:400},lab(M[mi]))});
+}
+function nowLine(s,L,w,T,h,B,ix){const k=ix.indexOf(NOW);if(k<0)return;const bw=(w-L-6)/ix.length;
+  el(s,'line',{x1:L+bw*(k+.5),x2:L+bw*(k+.5),y1:T,y2:h-B,stroke:css('--mut'),'stroke-dasharray':'2 3',opacity:.6})}
+function stacked(host,series,cap,ix){
+  const {s,w,h}=svgOf(host),L=38,B=20,T=8,n=ix.length;
+  const tot=ix.map(mi=>sum(series.map(r=>r.v[mi])));
+  const cp=ix.map(mi=>cap[mi]);
+  const max=Math.ceil(Math.max(...tot,...cp)/200)*200||200;
+  axes(s,w,h,L,B,T,max,f0,ix);
+  const bw=(w-L-6)/n,y=v=>h-B-(h-B-T)*v/max;
+  ix.forEach((mi,i)=>{let acc=0;const x=L+bw*i+bw*.18;
+    series.forEach(r=>{const v=r.v[mi];if(!v)return;const r0=el(s,'rect',{x,y:y(acc+v),width:bw*.64,height:Math.max(0,y(acc)-y(acc+v)),fill:r.c,rx:2,opacity:mi>NOW?.6:1});
+      r0.onmousemove=e=>showTip(e,`<b>${r.n}</b> · ${lab(M[mi])}<br>${f0(v)} h`);r0.onmouseleave=hideTip;acc+=v})});
+  const pts=cp.map((c,i)=>[L+bw*(i+.5),y(c)]);
+  el(s,'path',{d:pts.map((p,i)=>(i?'L':'M')+p[0]+','+p[1]).join(''),fill:'none',stroke:css('--warn'),'stroke-width':2,'stroke-dasharray':'4 3'});
+  pts.forEach((p,i)=>{const c=el(s,'circle',{cx:p[0],cy:p[1],r:6,fill:'transparent'});
+    c.onmousemove=e=>showTip(e,`${lab(M[ix[i]])}<br>Assigned ${f0(tot[i])} h / Capacity ${f0(cp[i])} h<br><b>${fp(pct(tot[i],cp[i]))}</b>`);c.onmouseleave=hideTip});
+  nowLine(s,L,w,T,h,B,ix);
+}
+function lines(host,sers,ix){
+  const {s,w,h}=svgOf(host),L=38,B=20,T=8;
+  const max=Math.max(1.2,Math.ceil(Math.max(...sers.flatMap(r=>ix.map(i=>r.v[i])))*10)/10);
+  axes(s,w,h,L,B,T,max,fp,ix);
+  const bw=(w-L-6)/ix.length,y=v=>h-B-(h-B-T)*v/max;
+  el(s,'line',{x1:L,x2:w-6,y1:y(1),y2:y(1),stroke:css('--warn'),'stroke-dasharray':'4 3'});
+  el(s,'text',{x:w-8,y:y(1)-3,'text-anchor':'end','font-size':9.5,fill:css('--warn')},'100% capacity');
+  nowLine(s,L,w,T,h,B,ix);
+  sers.forEach(r=>{const pts=ix.map((mi,i)=>[L+bw*(i+.5),y(r.v[mi])]);
+    el(s,'path',{d:pts.map((p,i)=>(i?'L':'M')+p[0]+','+p[1]).join(''),fill:'none',stroke:r.c,'stroke-width':2.5});
+    pts.forEach((p,i)=>{el(s,'circle',{cx:p[0],cy:p[1],r:3.5,fill:r.c});const t=el(s,'circle',{cx:p[0],cy:p[1],r:8,fill:'transparent'});
+      t.onmousemove=e=>showTip(e,`<b>${r.n}</b> · ${lab(M[ix[i]])}<br>${fp(r.v[ix[i]])} utilised`);t.onmouseleave=hideTip})});
+}
+function hbars(host,rows,fmt){
+  const {s,w,h}=svgOf(host);const L=Math.min(190,w*.42),R=84,max=Math.max(...rows.map(r=>r.v))||1,rh=h/rows.length;
+  rows.forEach((r,i)=>{const cy=rh*i+rh/2,bh=Math.min(18,rh*.6),bw=Math.max(2,(w-L-R)*r.v/max);
+    const nm=r.n.length>30?r.n.slice(0,29)+'…':r.n;
+    const t=el(s,'text',{x:L-6,y:cy+4,'text-anchor':'end','font-size':11.5,fill:css('--ink')},nm);el(t,'title',{},r.n);
+    el(s,'rect',{x:L,y:cy-bh/2,width:bw,height:bh,rx:3,fill:r.c});
+    el(s,'text',{x:L+bw+5,y:cy+4,'font-size':11,fill:css('--mut')},fmt(r));})
+}
+const leg=items=>`<div class="legend">${items.map(i=>`<span><i style="background:${i.c}"></i>${i.n}</span>`).join('')}<span><i style="background:transparent;border-top:2px dashed ${css('--warn')};height:0;width:14px;border-radius:0"></i>Capacity</span></div>`;
+
+const TABS=[['ov','Overview'],['ct','Contractors'],['cp','Contractor projects'],['en','Engineering'],['hm','People heatmap']];
+const nav=document.getElementById('nav'),main=document.getElementById('main');
+TABS.forEach(([id,n])=>{nav.insertAdjacentHTML('beforeend',`<button data-t="${id}">${n}</button>`);main.insertAdjacentHTML('beforeend',`<section id="t-${id}"></section>`)});
+let cur=null;try{cur=localStorage.getItem('tab')}catch(e){}if(!TABS.some(t=>t[0]===cur))cur='ov';
+nav.onclick=e=>{const b=e.target.closest('button');if(!b)return;cur=b.dataset.t;try{localStorage.setItem('tab',cur)}catch(e){}show()};
+const mode={ct:'project',en:'project'};
+
+function kpi(g,cls){const ps=G[g],cap=sum(agg(ps,'cap')),a=sum(agg(ps,'asg'));
+  return `<div class="kpi ${cls}"><div class="v">${fp(pct(a,cap))}</div><div class="l">${g} · planned utilisation, Apr 26 – Feb 27</div></div>
+  <div class="kpi ${cls}"><div class="v">${f0(a)} h</div><div class="l">${g} · assigned of ${f0(cap)} h capacity (${ps.length} people)</div></div>`}
+
+function insights(){
+  const out=[],C=G.Contractors,E=G.Engineering;
+  const ut=p=>pct(sum(p.asg),sum(p.cap));
+  const pr=projOf('Contractors'),pt=Object.entries(pr).map(([k,v])=>[k,sum(v)]).sort((a,b)=>b[1]-a[1]),tt=sum(pt.map(x=>x[1]));
+  out.push(['',`Contractor time is concentrated in <b>${short(pt[0][0])}</b> (${fp(pt[0][1]/tt)}) and <b>${short(pt[1][0])}</b> (${fp(pt[1][1]/tt)}) of project hours, Sep 26 – Feb 27.`]);
+  const solo=C.filter(p=>Object.values(PJ[p.name]||{}).filter(v=>sum(v)>0).length===1).map(p=>p.name);
+  if(solo.length)out.push(['',`${solo.join(', ')} ${solo.length>1?'are':'is'} assigned to a single project only.`]);
+  const lo=[...C].sort((a,b)=>ut(a)-ut(b))[0];
+  out.push(['w',`<b>${lo.name}</b> (${lo.role}) is the least-used contractor: ${fp(ut(lo))} of capacity assigned; first hours only start in Jan 27.`]);
+  const cu=agg(C,'asg').map((a,i)=>pct(a,agg(C,'cap')[i]));
+  out.push(['',`Contractor demand ramps from ${fp(cu[NOW-1])} in Sep to ${fp(cu[M.length-1])} by Feb 27.`]);
+  const over=[];E.forEach(p=>p.asg.forEach((a,i)=>{if(a/p.cap[i]>1.05&&i>=NOW-1)over.push(p.name+' '+lab(M[i]))}));
+  out.push(['w',`Engineering is over-allocated in places (&gt;105% from Sep): ${over.slice(0,3).join(', ')}${over.length>3?'…':''}.`]);
+  out.push(['w',`No <i>approved actual hours</i> exist yet for these groups – all figures are planned task assignments.`]);
+  return out.map(([c,t])=>`<li class="${c}" style="${c==='w'?'border-left-color:var(--warn)':''}">${t}</li>`).join('')}
+
+function renderOv(){
+  const t=document.getElementById('t-ov');
+  t.innerHTML=`<div class="kpis">${kpi('Contractors','c')}${kpi('Engineering','')}</div>
+  <div class="row"><div class="card" style="flex:2"><h2>Utilisation by month (assigned ÷ capacity)</h2><div class="chart" id="ov-l"></div>
+   <div class="legend"><span><i style="background:${css('--c')}"></i>Contractors</span><span><i style="background:${css('--e')}"></i>Engineering</span><span>Dotted vertical = today (Oct)</span></div></div>
+   <div class="card" style="flex:1;min-width:300px"><h2>Key takeaways</h2><ul class="ins">${insights()}</ul></div></div>`;
+  const u=g=>agg(G[g],'asg').map((a,i)=>pct(a,agg(G[g],'cap')[i]));
+  lines(document.getElementById('ov-l'),[{n:'Contractors',v:u('Contractors'),c:css('--c')},{n:'Engineering',v:u('Engineering'),c:css('--e')}],ALL);
+}
+
+function renderGroup(id,g,cls){
+  const t=document.getElementById('t-'+id),ps=G[g],cap=agg(ps,'cap'),m=mode[id];
+  const what=g==='Contractors'?'contractor':'engineering';
+  t.innerHTML=`<div class="kpis">${kpi(g,cls)}</div>
+  <div class="row"><div class="card" style="flex:3"><h2><span>Where ${what} time is going – assigned hours per month${m==='project'?' (Sep 26 – Feb 27)':''}</span>
+   <span class="tog"><button data-m="project" class="${m==='project'?'on':''}">By project</button><button data-m="role" class="${m==='role'?'on':''}">By role</button><button data-m="person" class="${m==='person'?'on':''}">By person</button></span></h2>
+   <div class="chart" id="${id}-s"></div><div id="${id}-lg"></div></div>
+   <div class="card" style="flex:2;min-width:250px"><h2>Total assigned hours${m==='project'?' (Sep 26 – Feb 27)':' (Apr 26 – Feb 27)'}</h2><div class="chart" id="${id}-h"></div></div></div>`;
+  t.querySelector('.tog').onclick=e=>{const b=e.target.closest('button');if(b){mode[id]=b.dataset.m;renderGroup(id,g,cls)}};
+  let ser,ix=ALL,rows;
+  if(m==='project'){
+    ix=PIX;const pr=Object.entries(projOf(g)).map(([k,v])=>[k,v,sum(v)]).filter(x=>x[2]>0).sort((a,b)=>b[2]-a[2]);
+    const top=pr.slice(0,6),rest=pr.slice(6);
+    ser=top.map(([k,v],i)=>({n:short(k),c:sc(i),v:M.map((_,mi)=>PIX.includes(mi)?v[PIX.indexOf(mi)]:0)}));
+    if(rest.length)ser.push({n:`Other (${rest.length} projects)`,c:css('--mut'),v:M.map((_,mi)=>PIX.includes(mi)?sum(rest.map(r=>r[1][PIX.indexOf(mi)])):0)});
+    rows=pr.slice(0,9).map(([k,v,tot],i)=>({n:short(k),v:tot,c:i<6?sc(i):css('--mut'),cap:null}));
+    if(pr.length>9)rows.push({n:`+${pr.length-9} more projects`,v:sum(pr.slice(9).map(x=>x[2])),c:css('--mut'),cap:null});
+  }else if(m==='role'){
+    ser=ROLES.filter(r=>ps.some(p=>p.role===r)).map((r,i)=>({n:r,c:sc(i),v:agg(ps.filter(p=>p.role===r),'asg')}));
+    rows=ser.map(s=>({n:s.n,v:sum(s.v),c:s.c,cap:sum(agg(ps.filter(p=>p.role===s.n),'cap'))}));
+  }else{
+    ser=ps.map((p,i)=>({n:p.name,c:sc(i),v:p.asg}));
+    rows=ps.map((p,i)=>({n:p.name+' · '+p.role,v:sum(p.asg),c:sc(i),cap:sum(p.cap)}));
+  }
+  stacked(document.getElementById(id+'-s'),ser,cap,ix);
+  document.getElementById(id+'-lg').innerHTML=leg(ser);
+  rows.sort((a,b)=>(a.n.startsWith('+')||a.n.startsWith('Other'))-(b.n.startsWith('+')||b.n.startsWith('Other'))||b.v-a.v);
+  hbars(document.getElementById(id+'-h'),rows,r=>f0(r.v)+' h'+(r.cap?' · '+fp(pct(r.v,r.cap)):''));
+}
+
+function shade(v,max){const a=max?Math.min(1,v/max):0;return v?`background:color-mix(in srgb,var(--c) ${Math.round(12+a*70)}%,transparent);`:'color:var(--mut);'}
+function renderCp(){
+  const t=document.getElementById('t-cp'),C=G.Contractors;
+  const pe=Object.entries(projOf('Contractors')).map(([k,v])=>[k,v,sum(v)]).filter(x=>x[2]>0).sort((a,b)=>b[2]-a[2]);
+  const pr=pe.map(x=>x[0]);
+  const cell=(n,k)=>sum((PJ[n]||{})[k]||[]);
+  const mx=Math.max(...C.flatMap(p=>pr.map(k=>cell(p.name,k))));
+  let h=`<div class="card" style="flex:none"><h2><span>Contractor hours by project (task assignment, Sep 26 – Feb 27)</span><span class="sub" style="color:var(--ink)">darker = more hours</span></h2><table class="hm cp"><thead><tr><th class="n">Contractor</th><th class="n">Role</th>${pr.map(k=>`<th title="${k}">${short(k)}</th>`).join('')}<th>Total</th></tr></thead><tbody>`;
+  C.forEach(p=>{const tot=sum(pr.map(k=>cell(p.name,k)));h+=`<tr><td class="n nm">${p.name}</td><td class="n rl">${p.role}</td>${pr.map(k=>{const v=cell(p.name,k);return `<td class="h" style="${shade(v,mx)}">${v?f0(v):'–'}</td>`}).join('')}<td class="h" style="font-weight:700">${f0(tot)}</td></tr>`});
+  h+=`<tr class="gr"><td colspan="2">Total</td>${pr.map(k=>`<td style="text-align:center">${f0(sum(C.map(p=>cell(p.name,k))))}</td>`).join('')}<td style="text-align:center">${f0(sum(C.flatMap(p=>pr.map(k=>cell(p.name,k)))))}</td></tr></tbody></table></div>
+  <div class="row"><div class="card" style="flex:3"><h2>Project hours per month</h2><div class="chart" id="cp-s"></div><div id="cp-lg"></div></div>
+  <div class="card" style="flex:2;min-width:250px"><h2>Share of contractor hours by project</h2><div class="chart" id="cp-h"></div></div></div>`;
+  t.innerHTML=h;
+  const ser=pe.map(([k,v],i)=>({n:short(k),c:sc(i),v:M.map((_,mi)=>PIX.includes(mi)?v[PIX.indexOf(mi)]:0)}));
+  stacked(document.getElementById('cp-s'),ser,agg(C,'cap'),PIX);
+  document.getElementById('cp-lg').innerHTML=leg(ser);
+  const tt=sum(pe.map(x=>x[2]));
+  hbars(document.getElementById('cp-h'),pe.map(([k,v,tot],i)=>({n:short(k),v:tot,c:sc(i)})),r=>fp(r.v/tt)+' · '+f0(r.v)+' h');
+}
+
+function heat(v){
+  if(v===0)return 'background:transparent;color:var(--ink);opacity:.55';
+  const col=v>1.05?'var(--err)':(v>=.7?'var(--ok)':'var(--e)');
+  return `background:color-mix(in srgb,${col} ${Math.round(14+Math.min(v,1.2)*35)}%,transparent);color:var(--ink)`}
+function renderHm(){
+  const t=document.getElementById('t-hm'),ix=ALL.filter(i=>i>=4); // Aug 26 onward
+  const sm=(p,k)=>sum(ix.map(i=>p[k][i]));
+  let h=`<div class="card" style="flex:1"><h2><span>Utilisation per person per month (assigned ÷ capacity)</span><span class="sub" style="color:var(--ink)">blue &lt;70% · green 70–105% · red over-allocated</span></h2><div style="overflow:auto;flex:1"><table class="hm" style="height:100%"><thead><tr><th class="n">Person</th><th class="n">Role</th>${ix.map(i=>`<th style="${i===NOW?'color:var(--ink);font-weight:700':''}">${lab(M[i])}</th>`).join('')}<th>Aug–Feb</th></tr></thead><tbody>`;
+  ['Contractors','Engineering'].forEach(g=>{h+=`<tr class="gr"><td colspan="${ix.length+3}">${g}</td></tr>`;
+    G[g].forEach(p=>{const tv=pct(sm(p,'asg'),sm(p,'cap'));h+=`<tr><td class="n nm">${p.name}</td><td class="n rl">${p.role}</td>`+ix.map(i=>{const a=p.asg[i],v=pct(a,p.cap[i]);return `<td class="h" style="${heat(v)}" title="${f0(a)} h of ${f0(p.cap[i])} h">${a?fp(v):'–'}</td>`}).join('')+`<td class="h" style="${heat(tv)};font-weight:700">${fp(tv)}</td></tr>`})});
+  t.innerHTML=h+'</tbody></table></div></div>';
+}
+const R={ov:renderOv,ct:()=>renderGroup('ct','Contractors','c'),cp:renderCp,en:()=>renderGroup('en','Engineering',''),hm:renderHm};
+function show(){[...nav.children].forEach(b=>b.classList.toggle('on',b.dataset.t===cur));
+  TABS.forEach(([id])=>document.getElementById('t-'+id).classList.toggle('on',id===cur));R[cur]()}
+document.getElementById('sub').textContent='Planned task-assignment hours vs capacity · Apr 2026 – Feb 2027 · Resourcing Report export, 15 Oct 2026';
+addEventListener('resize',()=>R[cur]());
+show();
+</script></body></html>
